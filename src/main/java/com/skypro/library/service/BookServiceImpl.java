@@ -38,13 +38,25 @@ public class BookServiceImpl implements BookService{
     @Override
     @Transactional
     public void addBook(Book book) {
+
+        validateBook(book);
+
         bookDAO.addBook(book);
     }
 
     @Override
     @Transactional
     public void updateBook(Book book) {
-        bookDAO.updateBook(book);
+
+        Book updatedBook = this.bookDAO.getBookByIsbn(book.getIsbn());
+
+        updatedBook.setBookName(book.getBookName());
+        updatedBook.setBookAuthor(book.getBookName());
+        updatedBook.setReleaseYear(book.getReleaseYear());
+
+        validateBook(updatedBook);
+
+        bookDAO.updateBook(updatedBook);
     }
 
     @Override
@@ -54,10 +66,39 @@ public class BookServiceImpl implements BookService{
         Book book = bookDAO.getBookByIsbn(isbn);
 
         if (book == null) {
-            throw new BookException("Employee with isbn= " + isbn + "doesn't exist");
+            throw new BookException("Book with isbn= " + isbn + "doesn't exist");
         }
 
         bookDAO.deleteBook(isbn);
+    }
+
+    private boolean validateBook(Book book) { //где его реализовывать?
+
+        if (book.getBookName() == null || book.getBookAuthor() == null
+                || book.getIsbn() == null || book.getReleaseYear() < 0) {
+            throw new BookException("Not all fields of the book are filled in");
+        }
+
+        String currentIsbn = book.getIsbn();
+        String cleandedIsbn = currentIsbn.replaceAll("[\\-\\s]", "");
+
+        if (cleandedIsbn.length() != 13 && !cleandedIsbn.matches("[0-9]+")) {
+            throw new BookException("Invalid ISBN");
+        }
+
+        int sum = 0;
+        for (int i = 0; i < cleandedIsbn.length(); i++) {
+            int digit = Character.getNumericValue(cleandedIsbn.charAt(i));
+            sum += (i % 2 == 0) ? digit : digit * 3;
+        }
+
+        int checkDigit = 10 - (sum % 10);
+
+//        if(checkDigit == 10) {
+//            checkDigit = 0;
+//        }
+
+        return checkDigit == Character.getNumericValue(cleandedIsbn.charAt(cleandedIsbn.length()-1));
     }
 
 }
