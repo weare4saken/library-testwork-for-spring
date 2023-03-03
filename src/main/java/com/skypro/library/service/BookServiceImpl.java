@@ -49,6 +49,7 @@ public class BookServiceImpl implements BookService{
     public void updateBook(Book book) {
 
         Book updatedBook = this.bookDAO.getBookByIsbn(book.getIsbn());
+        if(book == null) {} //реализовать
 
         updatedBook.setBookName(book.getBookName());
         updatedBook.setBookAuthor(book.getBookName());
@@ -72,7 +73,7 @@ public class BookServiceImpl implements BookService{
         bookDAO.deleteBook(isbn);
     }
 
-    private boolean validateBook(Book book) { //где его реализовывать?
+    private boolean validateBook(Book book) {
 
         if (book.getBookName() == null || book.getBookAuthor() == null
                 || book.getIsbn() == null || book.getReleaseYear() < 0) {

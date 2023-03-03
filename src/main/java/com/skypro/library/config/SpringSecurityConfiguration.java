@@ -25,19 +25,18 @@ public class SpringSecurityConfiguration {
         return httpSecurity.build();
     }
 
-//    @Override
+
     @Bean
     public UserDetailsService users() {
-        // The builder will ensure the passwords are encoded before saving in memory
         User.UserBuilder users = User.withDefaultPasswordEncoder();
         UserDetails user = users
                 .username("user")
-                .password("password")
+                .password("user")
                 .roles("USER")
                 .build();
         UserDetails admin = users
                 .username("admin")
-                .password("password")
+                .password("admin")
                 .roles("USER", "ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user, admin);

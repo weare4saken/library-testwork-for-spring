@@ -10,8 +10,6 @@ import java.util.List;
 @RequestMapping("skypro")
 public class RestControllerNew {
 
-    //добавить куда то GET /web - Показываем страницу со списком книг любому пользователю
-
     private BookService bookService;
 
     public RestControllerNew(BookService bookService) {
@@ -23,10 +21,10 @@ public class RestControllerNew {
         return bookService.getBooks();
     }
 
-    @GetMapping("/api/book/{isbn}") //может быть сделать как в методе delete?
-    public Book getBookByIsbn(@PathVariable String isbn) {
-        return bookService.getBookByIsbn(isbn);
-    }
+//    @GetMapping("/api/book")
+//    public Book getBookByIsbn(@PathVariable String isbn) {
+//        return bookService.getBookByIsbn(isbn);
+//    }
 
     @PostMapping("/api/book")
     public Book addBook(@RequestBody Book book) {
@@ -40,8 +38,8 @@ public class RestControllerNew {
         return book;
     }
 
-    @DeleteMapping("/api/book?isbn=<isbn>")
-    public String deleteBook(@PathVariable String isbn) {
+    @DeleteMapping("/api/book")
+    public String deleteBook(@RequestParam String isbn) {
         bookService.deleteBook(isbn);
         return "Book with isbn= " + isbn + " was deleted";
     }

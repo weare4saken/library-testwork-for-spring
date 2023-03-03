@@ -2,17 +2,17 @@ package com.skypro.library.entity;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="books")
+//@Entity
+//@Table(name="books")
 public class Book {
 
-    @Column(name="book_name")
+//    @Column(name="book_name")
     private String bookName;
-    @Column(name="book_author")
+//    @Column(name="book_author")
     private String bookAuthor;
-    @Column(name="release_year")
+//    @Column(name="release_year")
     private int releaseYear;
-    @Column(name="isbn")
+//    @Column(name="isbn")
     private String isbn;
 
     public Book() {
