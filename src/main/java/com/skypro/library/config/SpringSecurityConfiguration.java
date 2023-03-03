@@ -10,7 +10,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-//@EnableWebMvcSecurity
 public class SpringSecurityConfiguration {
 
     @Bean

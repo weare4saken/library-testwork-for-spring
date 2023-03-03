@@ -49,7 +49,9 @@ public class BookServiceImpl implements BookService{
     public void updateBook(Book book) {
 
         Book updatedBook = this.bookDAO.getBookByIsbn(book.getIsbn());
-        if(book == null) {} //реализовать
+        if(book == null) {
+            throw new BookException("Book is not exist");
+        }
 
         updatedBook.setBookName(book.getBookName());
         updatedBook.setBookAuthor(book.getBookName());
@@ -94,10 +96,6 @@ public class BookServiceImpl implements BookService{
         }
 
         int checkDigit = 10 - (sum % 10);
-
-//        if(checkDigit == 10) {
-//            checkDigit = 0;
-//        }
 
         return checkDigit == Character.getNumericValue(cleandedIsbn.charAt(cleandedIsbn.length()-1));
     }

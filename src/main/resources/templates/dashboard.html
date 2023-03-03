@@ -20,7 +20,7 @@
         </thead>
         <tbody>
         <tr th:each="book : ${books}">
-            <td th:text="${book.getbookName}"></td>
+            <td th:text="${book.bookName}"></td>
             <td th:text="${book.bookAuthor}"></td>
             <td th:text="${book.isbn}"></td>
             <td th:text="${book.releaseYear}"></td>

@@ -1,7 +1,6 @@
 package com.skypro.library.dao;
 
 import com.skypro.library.entity.Book;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,7 +15,6 @@ public class BookDAOImpl implements BookDAO {
 
     private JdbcTemplate jdbcTemplate; //вынести в отдельный конфиг
 
-//    @Autowired
     public BookDAOImpl(@Lazy JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
